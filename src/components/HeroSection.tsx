@@ -6,6 +6,7 @@ import { soundManager } from '../utils/sound';
 
 interface HeroSectionProps {
   featuredStrategies: Strategy[];
+  totalStrategies: number;
   onSelectStrategy: (strat: Strategy) => void;
   onPopBloon: () => void;
 }
@@ -23,9 +24,11 @@ interface FloatingBloon {
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
   featuredStrategies,
+  totalStrategies,
   onSelectStrategy,
   onPopBloon
 }) => {
+  const newThisPatch = featuredStrategies.filter((s) => s.isNew).length;
   const [currentSpotlightIndex, setCurrentSpotlightIndex] = useState(0);
   const [floatingBloons, setFloatingBloons] = useState<FloatingBloon[]>([
     { id: 1, type: 'red', x: 12, y: 35, speed: 1.2, label: 'Red Bloon', size: 36, points: 1 },
@@ -125,7 +128,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <div className="absolute top-2 left-2 w-2 h-3.5 rounded-full bg-white/60 transform -rotate-45" />
               {/* Bloon Knot */}
               <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-1.5 bg-inherit rounded-sm" />
-              
+
               {bloon.type === 'moab' && (
                 <span className="text-[10px] font-game text-yellow-300 font-bold uppercase tracking-tighter">MOAB</span>
               )}
@@ -142,7 +145,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
       {/* Main Hero Content */}
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16 lg:pt-16 lg:pb-20">
-        
+
         {/* Top Badges & Meta Notice */}
         <div className="flex flex-wrap items-center gap-2.5 mb-6">
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/40 text-amber-300 text-xs font-semibold tracking-wide shadow-sm">
@@ -152,7 +155,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
           <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-mono-code font-bold">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span>PATCH v47.2 VERIFIED</span>
+            <span>PATCH v57.2 VERIFIED</span>
           </div>
 
           <div className="hidden sm:inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs font-semibold">
@@ -163,7 +166,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
         {/* Hero Title & Subheading */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          
+
           <div className="lg:col-span-7 space-y-6">
             <h1 className="font-game text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1]">
               DOMINATE <span className="text-amber-400 underline decoration-amber-500/60 decoration-wavy decoration-2">CHIMPS</span> &amp; ELITE BOSSES.
@@ -214,7 +217,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           {/* Interactive Meta Spotlight Showcase Card */}
           <div className="lg:col-span-5">
             <div className="wood-panel rounded-2xl p-5 sm:p-6 relative overflow-hidden transition-all duration-300 hover:border-amber-500/70 shadow-2xl">
-              
+
               {/* Background Accent Glow */}
               <div className="absolute -top-12 -right-12 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -372,8 +375,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
           <div className="bg-[#18130c]/90 rounded-xl p-3.5 sm:p-4 border border-[#3b2a18]">
             <span className="text-[11px] font-mono-code text-stone-400 block uppercase">Verified Strats</span>
-            <div className="text-xl sm:text-2xl font-game font-bold text-purple-400 mt-0.5">12 Blueprints</div>
-            <span className="text-[11px] text-stone-400">All difficulty tiers covered</span>
+            <div className="text-xl sm:text-2xl font-game font-bold text-purple-400 mt-0.5">
+              {totalStrategies} Blueprints
+            </div>
+            <span className="text-[11px] text-stone-400">
+              {newThisPatch} new for the v57 cycle
+            </span>
           </div>
         </div>
 

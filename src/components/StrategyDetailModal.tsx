@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  X, Copy, Check, ShieldAlert, 
-  MapPin, ThumbsUp, ThumbsDown, Zap, 
+import {
+  X, Copy, Check, ShieldAlert,
+  MapPin, ThumbsUp, ThumbsDown, Zap,
   BookOpen, ChevronRight, Layers
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { Strategy } from '../types/btd6';
+import { getEfficiency, RANK_LABEL } from '../utils/efficiency';
 import { soundManager } from '../utils/sound';
 
 interface StrategyDetailModalProps {
@@ -68,17 +69,17 @@ ${strategy.dangerousRounds.map((d) => `- Round ${d.round}: ${d.threat} => Soluti
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-y-auto">
       {/* Backdrop */}
-      <div 
+      <div
         className="fixed inset-0 bg-black/85 backdrop-blur-md transition-opacity"
         onClick={() => {
           soundManager.playTap();
           onClose();
-        }} 
+        }}
       />
 
       {/* Modal Dialog Container */}
       <div className="relative wood-panel rounded-2xl max-w-4xl w-full max-h-[92vh] flex flex-col shadow-2xl border border-amber-500/40 z-10 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-        
+
         {/* Modal Top Bar */}
         <div className="p-4 sm:p-6 bg-[#1a130c] border-b border-[#3d2c19] flex items-start justify-between gap-4">
           <div>
@@ -98,13 +99,33 @@ ${strategy.dangerousRounds.map((d) => `- Round ${d.round}: ${d.threat} => Soluti
               </span>
 
               <span className="px-2 py-0.5 rounded text-xs font-mono-code bg-[#1f2937]/50 text-stone-300 border border-stone-700">
-                {strategy.patchVersion}
+                {strategy.verifiedOn ?? strategy.patchVersion}
+              </span>
+
+              {strategy.isNew && (
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono-code font-bold bg-emerald-500 text-stone-950 uppercase">
+                  new this patch
+                </span>
+              )}
+
+              <span
+                className="px-2 py-0.5 rounded text-xs font-mono-code font-bold bg-amber-400 text-stone-950 border border-amber-300"
+                title={RANK_LABEL[getEfficiency(strategy).rank]}
+              >
+                {getEfficiency(strategy).rank} · {getEfficiency(strategy).score}/100 eff
               </span>
 
               <span className="text-xs font-mono-code text-emerald-400 font-bold ml-1">
                 {strategy.winRate}% Verified Winrate
               </span>
             </div>
+
+            {strategy.patchNote && (
+              <p className="text-[11px] leading-relaxed text-emerald-100/85 bg-emerald-950/40 border border-emerald-800/40 rounded-lg px-2.5 py-1.5 mt-2 max-w-3xl">
+                <span className="font-mono-code font-bold text-emerald-400">PATCH IMPACT · </span>
+                {strategy.patchNote}
+              </p>
+            )}
 
             <h2 className="text-xl sm:text-2xl font-game font-bold text-white leading-tight">
               {strategy.title}
@@ -122,8 +143,8 @@ ${strategy.dangerousRounds.map((d) => `- Round ${d.round}: ${d.threat} => Soluti
                 onToggleFavorite(strategy.id);
               }}
               className={`p-2 rounded-xl border transition-colors cursor-pointer ${
-                isFavorite 
-                  ? 'bg-rose-950/70 border-rose-500 text-rose-400' 
+                isFavorite
+                  ? 'bg-rose-950/70 border-rose-500 text-rose-400'
                   : 'bg-[#251a10] border-[#44301d] text-stone-400 hover:text-rose-400'
               }`}
               title="Bookmark strategy"
@@ -209,7 +230,7 @@ ${strategy.dangerousRounds.map((d) => `- Round ${d.round}: ${d.threat} => Soluti
 
         {/* Modal Scrollable Body */}
         <div className="p-4 sm:p-6 overflow-y-auto space-y-6 flex-1 text-sm">
-          
+
           {/* TAB 1: ROUND WALKTHROUGH */}
           {activeTab === 'walkthrough' && (
             <div className="space-y-6">
@@ -328,11 +349,11 @@ ${strategy.dangerousRounds.map((d) => `- Round ${d.round}: ${d.threat} => Soluti
                         <span>Top Path ({tower.topPath}/5)</span>
                         <div className="flex space-x-1">
                           {[1, 2, 3, 4, 5].map((level) => (
-                            <div 
-                              key={level} 
+                            <div
+                              key={level}
                               className={`w-3 h-2 rounded-xs ${
                                 level <= tower.topPath ? 'bg-amber-400' : 'bg-stone-800'
-                              }`} 
+                              }`}
                             />
                           ))}
                         </div>
@@ -342,11 +363,11 @@ ${strategy.dangerousRounds.map((d) => `- Round ${d.round}: ${d.threat} => Soluti
                         <span>Mid Path ({tower.midPath}/5)</span>
                         <div className="flex space-x-1">
                           {[1, 2, 3, 4, 5].map((level) => (
-                            <div 
-                              key={level} 
+                            <div
+                              key={level}
                               className={`w-3 h-2 rounded-xs ${
                                 level <= tower.midPath ? 'bg-amber-400' : 'bg-stone-800'
-                              }`} 
+                              }`}
                             />
                           ))}
                         </div>
@@ -356,11 +377,11 @@ ${strategy.dangerousRounds.map((d) => `- Round ${d.round}: ${d.threat} => Soluti
                         <span>Bot Path ({tower.botPath}/5)</span>
                         <div className="flex space-x-1">
                           {[1, 2, 3, 4, 5].map((level) => (
-                            <div 
-                              key={level} 
+                            <div
+                              key={level}
                               className={`w-3 h-2 rounded-xs ${
                                 level <= tower.botPath ? 'bg-amber-400' : 'bg-stone-800'
-                              }`} 
+                              }`}
                             />
                           ))}
                         </div>
@@ -399,14 +420,14 @@ ${strategy.dangerousRounds.map((d) => `- Round ${d.round}: ${d.threat} => Soluti
                 <div>
                   <span className="font-bold text-stone-200 block">Monkey Knowledge Requirement</span>
                   <span className="text-stone-400">
-                    {strategy.monkeyKnowledgeRequired 
-                      ? 'Requires Monkey Knowledge points (e.g. Free Dart / Mana Shield / More Cash)' 
+                    {strategy.monkeyKnowledgeRequired
+                      ? 'Requires Monkey Knowledge points (e.g. Free Dart / Mana Shield / More Cash)'
                       : 'CHIMPS Certified: 100% playable with Monkey Knowledge completely DISABLED.'}
                   </span>
                 </div>
                 <span className={`px-2.5 py-1 rounded font-mono-code font-bold ${
-                  strategy.monkeyKnowledgeRequired 
-                    ? 'bg-amber-950 text-amber-300 border border-amber-700' 
+                  strategy.monkeyKnowledgeRequired
+                    ? 'bg-amber-950 text-amber-300 border border-amber-700'
                     : 'bg-emerald-950 text-emerald-300 border border-emerald-700'
                 }`}>
                   {strategy.monkeyKnowledgeRequired ? 'MK Required' : 'No MK Needed (CHIMPS)'}

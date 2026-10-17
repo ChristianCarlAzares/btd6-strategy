@@ -80,19 +80,32 @@ export const CHIMPS_INCOME_MILESTONES: ChimpsMilestone[] = [
   }
 ];
 
+/** Medium-difficulty purchase prices, verified against the v57.2 upgrade list. */
 export const POPULAR_TIER5_COSTS: { name: string; cost: number; category: string }[] = [
-  { name: 'The Tack Zone (2-0-5)', cost: 26000, category: 'Primary' },
-  { name: 'Prince of Darkness (0-2-5)', cost: 29000, category: 'Magic' },
+  // ── New in the v56/v57 cycle ────────────────────────────────────────────
+  { name: 'Glue Storm (2-5-0) — NEW', cost: 16000, category: 'Primary' },
+  { name: "Winter's Mercy (2-0-5 Skywarden) — NEW", cost: 20000, category: 'Magic' },
+  { name: 'Stormwrath Archon (1-5-0 Skywarden) — NEW', cost: 32000, category: 'Magic' },
+  { name: 'Lord of the Abyss (5-0-2) — NEW', cost: 23000, category: 'Military' },
+  { name: 'The Bloon Solver (5-2-0)', cost: 22500, category: 'Primary' },
+  { name: 'Trade Empire (2-0-5)', cost: 23000, category: 'Support' },
+  { name: 'Comanche Commander (0-2-5)', cost: 35000, category: 'Military' },
+  { name: 'Apache Prime (5-0-2)', cost: 45000, category: 'Military' },
+  { name: 'Popseidon (0-5-2)', cost: 52000, category: 'Military' },
+  // ── Evergreen staples ───────────────────────────────────────────────────
+  { name: 'The Tack Zone (2-0-5)', cost: 20000, category: 'Primary' },
+  { name: 'Prince of Darkness (0-2-5)', cost: 26500, category: 'Magic' },
   { name: 'Super Brittle (5-0-2)', cost: 33000, category: 'Primary' },
-  { name: 'Perma-Spike (0-2-5)', cost: 36500, category: 'Support' },
-  { name: 'Sub Commander (2-0-5)', cost: 28000, category: 'Military' },
-  { name: 'Pre-Emptive Strike (2-5-0)', cost: 38000, category: 'Military' },
-  { name: 'Grandmaster Ninja (5-0-1)', cost: 42000, category: 'Magic' },
-  { name: 'Sky Shredder (5-0-2)', cost: 45000, category: 'Military' },
-  { name: 'Spirit of the Forest (1-5-0)', cost: 45000, category: 'Magic' },
-  { name: 'Avatar of Wrath (0-1-5)', cost: 51000, category: 'Magic' },
-  { name: 'Inferno Ring (5-0-2)', cost: 52000, category: 'Primary' },
-  { name: 'Carpet of Spikes (2-5-0)', cost: 47000, category: 'Support' },
-  { name: 'Flying Fortress (2-0-5)', cost: 110000, category: 'Military' },
-  { name: 'True Sun God (5-2-0)', cost: 540000, category: 'Magic' }
+  { name: 'Perma-Spike (0-2-5)', cost: 30000, category: 'Support' },
+  { name: 'Sub Commander (2-0-5)', cost: 25000, category: 'Military' },
+  { name: 'Pre-Emptive Strike (2-5-0)', cost: 29000, category: 'Military' },
+  { name: 'Bomb Blitz (0-2-5)', cost: 30000, category: 'Primary' },
+  { name: 'Grandmaster Ninja (5-0-1)', cost: 35000, category: 'Magic' },
+  { name: 'Spirit of the Forest (1-5-0)', cost: 35000, category: 'Magic' },
+  { name: 'Carpet of Spikes (2-5-0)', cost: 41000, category: 'Support' },
+  { name: 'Sky Shredder (5-0-2)', cost: 42500, category: 'Military' },
+  { name: 'Avatar of Wrath (0-1-5)', cost: 45000, category: 'Magic' },
+  { name: 'Inferno Ring (5-0-2)', cost: 45500, category: 'Primary' },
+  { name: 'Flying Fortress (2-0-5)', cost: 90000, category: 'Military' },
+  { name: 'True Sun God (5-2-0)', cost: 500000, category: 'Magic' }
 ];

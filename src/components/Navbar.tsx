@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Volume2, VolumeX, ShieldAlert, Sparkles, Menu, X, Compass, Crosshair, Calculator, Layers, Flame } from 'lucide-react';
+import { Volume2, VolumeX, ShieldAlert, Sparkles, Menu, X, Compass, Crosshair, Calculator, Layers, Flame, TrendingUp } from 'lucide-react';
 import { soundManager } from '../utils/sound';
 
 interface NavbarProps {
@@ -19,6 +19,7 @@ export const Navbar: React.FC<NavbarProps> = ({ popCount, onPopBonus }) => {
 
   const navLinks = [
     { name: 'Meta Spotlight', href: '#hero', icon: Sparkles },
+    { name: 'Efficiency', href: '#efficiency', icon: TrendingUp },
     { name: 'Strategy Vault', href: '#strategies', icon: Compass },
     { name: 'Danger Rounds', href: '#round-guide', icon: ShieldAlert },
     { name: 'CHIMPS Planner', href: '#chimps-calc', icon: Calculator },
@@ -30,11 +31,11 @@ export const Navbar: React.FC<NavbarProps> = ({ popCount, onPopBonus }) => {
     <header className="sticky top-0 z-50 bg-[#120e0a]/95 backdrop-blur-md border-b border-[#3d2e1b] shadow-2xl transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
-          
+
           {/* Logo & Brand */}
           <div className="flex items-center space-x-3">
-            <a 
-              href="#hero" 
+            <a
+              href="#hero"
               onClick={() => soundManager.playTap()}
               className="group flex items-center space-x-3 focus:outline-none"
             >
@@ -52,14 +53,14 @@ export const Navbar: React.FC<NavbarProps> = ({ popCount, onPopBonus }) => {
                   <span className="absolute -bottom-1 -right-1 text-[9px] font-bold bg-amber-500 text-stone-900 px-1 rounded-tl font-mono-code">6</span>
                 </div>
               </div>
-              
+
               <div>
                 <div className="flex items-center space-x-2">
                   <span className="font-game text-xl sm:text-2xl font-bold tracking-wide text-amber-400 group-hover:text-amber-300 transition-colors">
                     STRATEX<span className="text-emerald-400">6</span>
                   </span>
                   <span className="hidden md:inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-950 text-emerald-300 border border-emerald-700/60 font-mono-code">
-                    v47.2 LIVE
+                    v57.2 LIVE
                   </span>
                 </div>
                 <p className="text-[11px] text-stone-400 font-medium hidden sm:block tracking-wider uppercase">
@@ -123,7 +124,7 @@ export const Navbar: React.FC<NavbarProps> = ({ popCount, onPopBonus }) => {
               className="hidden sm:inline-flex items-center space-x-1.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-stone-950 font-game font-bold text-sm px-3.5 py-1.5 rounded-lg shadow-md hover:shadow-amber-500/25 transition-all active:scale-95 cursor-pointer"
             >
               <Crosshair className="w-4 h-4" />
-              <span>Browse 12+ Strats</span>
+              <span>Browse the Vault</span>
             </a>
 
             {/* Mobile Menu Button */}
@@ -144,7 +145,7 @@ export const Navbar: React.FC<NavbarProps> = ({ popCount, onPopBonus }) => {
           <div className="flex items-center justify-between pb-2 border-b border-[#302415] mb-2">
             <span className="text-xs font-mono-code text-stone-400">NAVIGATE GUIDE</span>
             <span className="text-xs font-mono-code text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800">
-              Patch v47.2 Live
+              Patch v57.2 Live
             </span>
           </div>
           {navLinks.map((item) => (

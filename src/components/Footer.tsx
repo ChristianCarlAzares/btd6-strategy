@@ -28,10 +28,10 @@ export const Footer: React.FC<FooterProps> = ({ popCount, onPopBonus }) => {
   return (
     <footer className="bg-[#0b0805] border-t border-[#342416] text-stone-400 text-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        
+
         {/* Main Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 mb-12">
-          
+
           {/* Brand & Mission */}
           <div className="lg:col-span-5 space-y-4">
             <div className="flex items-center space-x-3">
@@ -78,8 +78,13 @@ export const Footer: React.FC<FooterProps> = ({ popCount, onPopBonus }) => {
                 </a>
               </li>
               <li>
+                <a href="#efficiency" onClick={() => soundManager.playTap()} className="hover:text-amber-400 transition-colors">
+                  Efficiency Leaderboard
+                </a>
+              </li>
+              <li>
                 <a href="#strategies" onClick={() => soundManager.playTap()} className="hover:text-amber-400 transition-colors">
-                  Strategy Vault (12)
+                  Strategy Vault <span className="text-emerald-400 font-mono-code">· v57.2</span>
                 </a>
               </li>
               <li>
@@ -112,7 +117,7 @@ export const Footer: React.FC<FooterProps> = ({ popCount, onPopBonus }) => {
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <span className="text-stone-300">Patch v47.2 Live</span>
+                <span className="text-stone-300">Patch v57.2 Live</span>
               </li>
               <li>
                 <span className="text-stone-400">Ninja Kiwi Balance Notes</span>

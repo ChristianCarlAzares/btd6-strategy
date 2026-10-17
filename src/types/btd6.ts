@@ -54,6 +54,18 @@ export interface Strategy {
   challengeCode: string;
   isFeatured?: boolean;
   metaRanking?: number;
+  /** Efficiency grade: raw power delivered per dollar spent. */
+  efficiencyRank?: 'S+' | 'S' | 'A' | 'B';
+  /** 0-100 composite score of cost efficiency, winrate and micro burden. */
+  efficiencyScore?: number;
+  /** Round at which the core damage engine is fully online. */
+  coreOnlineRound?: number;
+  /** Patch this blueprint was last verified on. */
+  verifiedOn?: string;
+  /** Flag for blueprints added in the newest patch cycle. */
+  isNew?: boolean;
+  /** Headline patch note that changed this blueprint's viability. */
+  patchNote?: string;
 }
 
 export interface RoundInfo {

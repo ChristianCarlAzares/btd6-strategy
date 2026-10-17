@@ -1,10 +1,18 @@
 import React, { useState, useMemo } from 'react';
-import { 
-  Search, Heart, Copy, Check, ExternalLink, Sparkles, 
+import {
+  Search, Heart, Copy, Check, ExternalLink, Sparkles,
   AlertCircle, Shield, MapPin, Gauge, RotateCcw
 } from 'lucide-react';
 import { Strategy, DifficultyLevel } from '../types/btd6';
+import { getEfficiency, EfficiencyRank } from '../utils/efficiency';
 import { soundManager } from '../utils/sound';
+
+const EFF_BADGE: Record<EfficiencyRank, string> = {
+  'S+': 'bg-amber-400 text-stone-950 border-amber-300',
+  S: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/50',
+  A: 'bg-sky-500/20 text-sky-300 border-sky-500/50',
+  B: 'bg-stone-500/20 text-stone-300 border-stone-500/50',
+};
 
 interface StrategyGridProps {
   strategies: Strategy[];
@@ -25,8 +33,11 @@ export const StrategyGrid: React.FC<StrategyGridProps> = ({
   const [selectedHero, setSelectedHero] = useState<string>('All');
   const [selectedMicro, setSelectedMicro] = useState<string>('All');
   const [onlyFavorites, setOnlyFavorites] = useState(false);
-  const [sortBy, setSortBy] = useState<'winRate' | 'cost' | 'difficulty' | 'name'>('winRate');
+  const [onlyNew, setOnlyNew] = useState(false);
+  const [sortBy, setSortBy] = useState<'efficiency' | 'winRate' | 'cost' | 'difficulty' | 'name'>('efficiency');
   const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  const newCount = strategies.filter((s) => s.isNew).length;
 
   // Distinct list of heroes for filtering
   const allHeroes = useMemo(() => {
@@ -85,9 +96,15 @@ export const StrategyGrid: React.FC<StrategyGridProps> = ({
           return false;
         }
 
+        // Latest-patch blueprints only
+        if (onlyNew && !strat.isNew) {
+          return false;
+        }
+
         return true;
       })
       .sort((a, b) => {
+        if (sortBy === 'efficiency') return getEfficiency(b).score - getEfficiency(a).score;
         if (sortBy === 'winRate') return b.winRate - a.winRate;
         if (sortBy === 'cost') return a.totalCostEstimate - b.totalCostEstimate;
         if (sortBy === 'difficulty') return difficultyOrder[a.difficulty] - difficultyOrder[b.difficulty];
@@ -102,6 +119,7 @@ export const StrategyGrid: React.FC<StrategyGridProps> = ({
     selectedHero,
     selectedMicro,
     onlyFavorites,
+    onlyNew,
     favorites,
     sortBy,
     difficultyOrder
@@ -128,6 +146,7 @@ Challenge Code: ${strat.challengeCode}`;
     setSelectedHero('All');
     setSelectedMicro('All');
     setOnlyFavorites(false);
+    setOnlyNew(false);
   };
 
   const difficultyTabColors: Record<string, { active: string; border: string }> = {
@@ -149,7 +168,7 @@ Challenge Code: ${strat.challengeCode}`;
 
   return (
     <section id="strategies" className="py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
+
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
         <div>
@@ -161,7 +180,7 @@ Challenge Code: ${strat.challengeCode}`;
             STRATEGY <span className="text-amber-400">VAULT</span>
           </h2>
           <p className="text-sm text-stone-400 mt-1 max-w-2xl">
-            Filter through high-tier build orders categorized by difficulty level, hero synergy, and target game mode.
+            Every blueprint re-verified on <strong className="text-emerald-400 font-mono-code">v57.2</strong> — filter by difficulty tier, hero, micro load and efficiency grade.
           </p>
         </div>
 
@@ -170,6 +189,23 @@ Challenge Code: ${strat.challengeCode}`;
           <span className="text-xs font-mono-code text-stone-400">
             Showing <strong className="text-amber-400">{filteredStrategies.length}</strong> of {strategies.length} Strategies
           </span>
+          <button
+            onClick={() => {
+              soundManager.playTap();
+              setOnlyNew(!onlyNew);
+            }}
+            className={`flex items-center space-x-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border transition-colors cursor-pointer ${
+              onlyNew
+                ? 'bg-emerald-500 text-stone-950 border-emerald-400'
+                : 'bg-[#211810] border-[#44311e] text-stone-300 hover:text-emerald-300 hover:border-emerald-600/60'
+            }`}
+            title="Show only the blueprints added for the v57 patch cycle"
+          >
+            <span className="font-mono-code uppercase tracking-wider">New v57</span>
+            <span className={`px-1.5 rounded text-[10px] font-mono-code ${onlyNew ? 'bg-stone-950/25 text-stone-950' : 'bg-[#291e13] text-emerald-300'}`}>
+              {newCount}
+            </span>
+          </button>
           {favorites.length > 0 && (
             <button
               onClick={() => {
@@ -193,8 +229,8 @@ Challenge Code: ${strat.challengeCode}`;
       <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-3 mb-6 scrollbar-thin">
         {['All', 'Beginner', 'Intermediate', 'Advanced', 'Expert', 'Boss'].map((diff) => {
           const isActive = selectedDifficulty === diff;
-          const count = diff === 'All' 
-            ? strategies.length 
+          const count = diff === 'All'
+            ? strategies.length
             : strategies.filter((s) => s.difficulty === diff).length;
 
           return (
@@ -223,7 +259,7 @@ Challenge Code: ${strat.challengeCode}`;
 
       {/* Search & Multi-Filter Bar */}
       <div className="wood-panel rounded-2xl p-4 sm:p-5 mb-8 space-y-4">
-        
+
         {/* Top Search Input */}
         <div className="relative">
           <Search className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-stone-400 pointer-events-none" />
@@ -246,7 +282,7 @@ Challenge Code: ${strat.challengeCode}`;
 
         {/* Secondary Filter Controls Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1 text-xs">
-          
+
           {/* Game Mode Filter */}
           <div>
             <label className="block text-[11px] font-mono-code text-stone-400 uppercase tracking-wider mb-1">
@@ -315,10 +351,11 @@ Challenge Code: ${strat.challengeCode}`;
               value={sortBy}
               onChange={(e) => {
                 soundManager.playTap();
-                setSortBy(e.target.value as 'winRate' | 'cost' | 'difficulty' | 'name');
+                setSortBy(e.target.value as 'efficiency' | 'winRate' | 'cost' | 'difficulty' | 'name');
               }}
               className="w-full bg-[#18110a] border border-[#3f2c19] rounded-lg px-2.5 py-2 text-stone-200 focus:outline-none focus:border-amber-500 cursor-pointer"
             >
+              <option value="efficiency">Efficiency Score (S+ first)</option>
               <option value="winRate">Highest Winrate</option>
               <option value="difficulty">Difficulty (Easy first)</option>
               <option value="cost">Lowest Total Cost</option>
@@ -328,7 +365,7 @@ Challenge Code: ${strat.challengeCode}`;
         </div>
 
         {/* Filter Reset if filtered */}
-        {(searchQuery || selectedDifficulty !== 'All' || selectedGameMode !== 'All' || selectedHero !== 'All' || selectedMicro !== 'All' || onlyFavorites) && (
+        {(searchQuery || selectedDifficulty !== 'All' || selectedGameMode !== 'All' || selectedHero !== 'All' || selectedMicro !== 'All' || onlyFavorites || onlyNew) && (
           <div className="flex items-center justify-between pt-2 border-t border-[#312314] text-xs">
             <span className="text-stone-400">Filters applied</span>
             <button
@@ -347,6 +384,7 @@ Challenge Code: ${strat.challengeCode}`;
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredStrategies.map((strat) => {
             const isFav = favorites.includes(strat.id);
+            const eff = getEfficiency(strat);
 
             return (
               <div
@@ -370,6 +408,20 @@ Challenge Code: ${strat.challengeCode}`;
                       <span className="px-2 py-0.5 rounded text-[11px] font-mono-code bg-[#23180f] text-stone-300 border border-[#48341f]">
                         {strat.gameMode}
                       </span>
+
+                      {/* Efficiency Rank */}
+                      <span
+                        className={`px-1.5 py-0.5 rounded text-[11px] font-mono-code font-bold border ${EFF_BADGE[eff.rank]}`}
+                        title={`Efficiency ${eff.score}/100 — ${eff.costPerRound.toLocaleString()} per round`}
+                      >
+                        {eff.rank}
+                      </span>
+
+                      {strat.isNew && (
+                        <span className="px-1.5 py-0.5 rounded text-[10px] font-mono-code font-bold bg-emerald-500 text-stone-950 uppercase">
+                          new
+                        </span>
+                      )}
                     </div>
 
                     {/* Bookmark Favorite Button */}
@@ -406,8 +458,15 @@ Challenge Code: ${strat.challengeCode}`;
                       <span className="text-[11px] font-mono-code">{strat.microIntensity}</span>
                     </div>
 
-                    <div className="font-mono-code text-emerald-400 font-bold text-[11px]">
-                      {strat.winRate}% WIN
+                    <div className="text-right shrink-0">
+                      <div className="font-mono-code text-emerald-400 font-bold text-[11px]">
+                        {strat.winRate}% WIN
+                      </div>
+                      {strat.coreOnlineRound && (
+                        <div className="font-mono-code text-[10px] text-stone-500">
+                          core @ R{strat.coreOnlineRound}
+                        </div>
+                      )}
                     </div>
                   </div>
 
@@ -443,6 +502,16 @@ Challenge Code: ${strat.challengeCode}`;
                       Maps: <strong className="text-stone-300 font-normal">{strat.maps.slice(0, 3).join(', ')}</strong>
                     </span>
                   </div>
+
+                  {/* Latest patch note */}
+                  {strat.patchNote && (
+                    <div className="mt-3 text-[11px] leading-relaxed text-emerald-100/85 bg-emerald-950/40 border border-emerald-800/40 rounded-lg px-2.5 py-2">
+                      <span className="font-mono-code font-bold text-emerald-400">
+                        {strat.verifiedOn ?? strat.patchVersion} ·{' '}
+                      </span>
+                      {strat.patchNote}
+                    </div>
+                  )}
                 </div>
 
                 {/* Bottom Card Actions */}

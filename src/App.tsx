@@ -8,8 +8,19 @@ import { TowerSynergyMatrix } from './components/TowerSynergyMatrix';
 import { BossEventShowcase } from './components/BossEventShowcase';
 import { Footer } from './components/Footer';
 import { StrategyDetailModal } from './components/StrategyDetailModal';
+import { EfficiencyBoard } from './components/EfficiencyBoard';
 import { STRATEGIES_DATA } from './data/strategies';
+import { LATEST_STRATEGIES } from './data/strategiesLatest';
+import { PARAGON_STRATEGIES } from './data/strategiesParagon';
 import { Strategy } from './types/btd6';
+import { getEfficiency } from './utils/efficiency';
+
+/** Newest blueprints first so the vault opens on the current patch meta. */
+export const ALL_STRATEGIES: Strategy[] = [
+  ...LATEST_STRATEGIES,
+  ...PARAGON_STRATEGIES,
+  ...STRATEGIES_DATA,
+];
 
 export function App() {
   const [popCount, setPopCount] = useState<number>(() => {
@@ -67,12 +78,14 @@ export function App() {
     setSelectedStrategy(strat);
   };
 
-  // Get featured strategies for the hero showcase
-  const featuredStrategies = STRATEGIES_DATA.filter((s) => s.isFeatured);
+  // Featured spotlight, ordered by efficiency score
+  const featuredStrategies = ALL_STRATEGIES
+    .filter((s) => s.isFeatured)
+    .sort((a, b) => getEfficiency(b).score - getEfficiency(a).score);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0d0a07] text-stone-100 font-sans selection:bg-amber-500 selection:text-stone-950">
-      
+
       {/* Top Navigation */}
       <Navbar
         popCount={popCount}
@@ -82,17 +95,24 @@ export function App() {
 
       {/* Main Content */}
       <main className="flex-1">
-        
+
         {/* Hero Section with Meta Spotlight & Pop Minigame */}
         <HeroSection
-          featuredStrategies={featuredStrategies.length > 0 ? featuredStrategies : STRATEGIES_DATA.slice(0, 3)}
+          featuredStrategies={featuredStrategies.length > 0 ? featuredStrategies : ALL_STRATEGIES.slice(0, 3)}
+          totalStrategies={ALL_STRATEGIES.length}
           onSelectStrategy={handleSelectStrategy}
           onPopBloon={handlePopBloon}
         />
 
+        {/* Efficiency leaderboard for the newest patch cycle */}
+        <EfficiencyBoard
+          strategies={ALL_STRATEGIES}
+          onSelectStrategy={handleSelectStrategy}
+        />
+
         {/* Categorized Searchable Strategy Vault */}
         <StrategyGrid
-          strategies={STRATEGIES_DATA}
+          strategies={ALL_STRATEGIES}
           onSelectStrategy={handleSelectStrategy}
           favorites={favorites}
           onToggleFavorite={handleToggleFavorite}
