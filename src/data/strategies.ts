@@ -846,5 +846,345 @@ export const STRATEGIES_DATA: Strategy[] = [
     synergyNotes: 'Stalling towers (MOAB Glue and Snowstorm) artificially lengthen the duration of rounds, allowing Perma-Spike to generate up to 50 spikes per round instead of 25!',
     challengeCode: 'ZMPSPK1',
     isFeatured: false
+  },
+  {
+    id: 'strat-adora-absolute-zero-meteor',
+    title: 'Adora Absolute Zero Meteor Core',
+    subtitle: 'Highest-efficiency hero carry: Adora buffs Absolute Zero ice to melt bosses and Round 98 fortified walls',
+    difficulty: 'Advanced',
+    gameMode: 'CHIMPS',
+    hero: 'Adora',
+    winRate: 94,
+    patchVersion: 'v47.x',
+    microIntensity: 'Low (AFK)',
+    totalCostEstimate: 126000,
+    monkeyKnowledgeRequired: false,
+    maps: ['Logs', 'Cornfield', 'Cubism', 'Spring Spring', 'Monkey Meadow', 'Park Path'],
+    tags: ['Hero Carry', 'Ice Meta', 'Boss Killer', 'Absolute Zero', 'Freeze Lock', 'Single Lane Safe'],
+    keyTowers: [
+      { name: 'Adora', crosspath: 'Level 20 (Phase / Sun Temple buffs)', topPath: 0, midPath: 0, botPath: 0, role: 'Buffs ice towers with piercing sun rays and +2 range', category: 'Hero', costEstimate: 1080 },
+      { name: 'Absolute Zero', crosspath: '0-5-2', topPath: 0, midPath: 5, botPath: 2, role: 'Full-screen ice storm that stalls and slows every bloon type', category: 'Primary', costEstimate: 26000 },
+      { name: 'Ice Monkey (Super Brittle)', crosspath: '5-0-2', topPath: 5, midPath: 0, botPath: 2, role: '+4 flat damage debuff to every frozen target', category: 'Primary', costEstimate: 33000 },
+      { name: 'Village', crosspath: '2-0-2', topPath: 2, midPath: 0, botPath: 2, role: 'Jungle Drums 18% attack speed + Primary discounts', category: 'Support', costEstimate: 3900 },
+      { name: 'Alchemist', crosspath: '2-0-0', topPath: 2, midPath: 0, botPath: 0, role: 'AMD makes ice spikes pop Lead', category: 'Magic', costEstimate: 1600 }
+    ],
+    buildOrder: [
+      {
+        roundRange: 'Rounds 6-30',
+        phase: 'Adora Drop & Early Ice',
+        actions: [
+          'Drop Dart Monkey on Round 6.',
+          'Drop Adora on Round 9 and immediately path toward the ice lane.',
+          'Place 0-0-3 Ice Monkey on the central corner; upgrade to 0-3-3 Glacial Storm.',
+          'Adora naturally buffs all magic towers nearby; set targeting to Strong for blimp focus.',
+        ],
+        tips: 'Adora attacks passively through obstacles. No need to micro her early!'
+      },
+      {
+        roundRange: 'Rounds 31-60',
+        phase: 'Absolute Zero Rush',
+        actions: [
+          'Upgrade Ice to 0-4-3 Cryo Cannon before Round 40 MOAB.',
+          'Save directly for 0-5-2 Absolute Zero by Round 60.',
+          'Place 2-0-0 Alchemist next to Absolute Zero; activate Acidic Mixture Dip for Lead pops.',
+          'Round 59 camo leads are frozen and popped by Absolute Zero aura + Adora sun rays.',
+        ],
+        tips: 'Absolute Zero stalls almost everything; your defenses get double time to build spikes!'
+      },
+      {
+        roundRange: 'Rounds 61-80',
+        phase: 'Debuff & Lockdown',
+        actions: [
+          'Upgrade Village to 2-0-2 covering ice for Jungle Drums attack speed.',
+          'Upgrade Ice to 0-5-2 Absolute Zero (full-screen freeze every few seconds).',
+          'Add a second 0-2-4 MOAB Glue to slow BFB remnants.',
+          'Round 63 triple ceramics are completely stalled and melted by ice storm + Adora.'
+        ],
+        tips: 'Adora Level 14 (Sunbeam) already melts MOABs; Absolute Zero finish them before they escape.'
+      },
+      {
+        roundRange: 'Rounds 81-100',
+        phase: 'Freeze Lock Endgame',
+        actions: [
+          'Adora reaches Level 20; sun beams pierce entire track width.',
+          'Absolute Zero + Super Brittle keeps Round 95 DDTs frozen in place while Adora sun rays shred them.',
+          'Round 98 ZOMG horde is slowed to a crawl; Adora Phase ability clears remaining children.',
+          'Round 100 BAD is frozen repeatedly by Absolute Zero while Adora unloads maximum damage.'
+        ],
+        tips: 'This is one of the lowest-micro CHIMPS carries in the meta. Place and forget.'
+      }
+    ],
+    dangerousRounds: [
+      { round: 59, threat: 'Camo Lead', counter: 'Absolute Zero slows + Adora sun beams' },
+      { round: 63, threat: 'Ceramic rush', counter: 'Absolute Zero full-screen stall + 0-3-3 Cryo Cannon' },
+      { round: 90, threat: 'First DDTs', counter: 'Ice stun locks DDTs while Adora pierces armor' },
+      { round: 95, threat: 'Fortified DDT swarm', counter: 'Super Brittle + Absolute Zero freeze duration' },
+      { round: 98, threat: 'Fortified ZOMGs', counter: 'Adora Level 20 sun storm + Absolute Zero' },
+      { round: 100, threat: 'B.A.D.', counter: 'Repeated Absolute Zero freeze + Adora max beam damage' }
+    ],
+    pros: [
+      'Absolute Zero freeze makes even Round 98 trivial',
+      'Adora scales naturally to Level 20 with no babysitting',
+      'Extremely low actions per minute; AFK friendly'
+    ],
+    cons: [
+      'Requires one tight ice placement spot for full-screen coverage',
+      'Ice towers alone cannot pop Lead without 2-0-0 Alchemist present'
+    ],
+    synergyNotes: 'Adora\'s sun rays apply pierce to every ice spike from Absolute Zero, turning frozen bloons into instant shatter targets.',
+    challengeCode: 'ZMADORA0',
+    isFeatured: false
+  },
+  {
+    id: 'strat-striker-rocket-storm-fire-ice',
+    title: 'Striker Jones Rocket Storm Fire & Ice',
+    subtitle: 'Striker Jones launches triple rockets while Fire & Ice decamos and slows everything in its path',
+    difficulty: 'Intermediate',
+    gameMode: 'CHIMPS',
+    hero: 'Striker Jones',
+    winRate: 92,
+    patchVersion: 'v47.x',
+    microIntensity: 'Medium',
+    totalCostEstimate: 118000,
+    monkeyKnowledgeRequired: false,
+    maps: ['Resort', 'Logs', 'KartsNDarts', 'Bazaar', 'Cracked', 'Sanctuary'],
+    tags: ['Striker Jones', 'MOAB Shredder', 'Rocket Storm', 'Fire & Ice', 'Mid-Late Game DPS', 'Cheap Setup'],
+    keyTowers: [
+      { name: 'Striker Jones', crosspath: 'Level 20 (Missile Buffs)', topPath: 0, midPath: 0, botPath: 0, role: 'Fires triple explosive missiles every 1.5s with global camo detection at Level 20', category: 'Hero', costEstimate: 1080 },
+      { name: 'Fire & Ice', crosspath: '4-0-2', topPath: 4, midPath: 0, botPath: 2, role: 'Decamos, slows, and deals dual damage to all intersecting bloons', category: 'Primary', costEstimate: 4200 },
+      { name: 'Super Brittle', crosspath: '5-0-2', topPath: 5, midPath: 0, botPath: 2, role: '+4 flat damage to all frozen/stunned bloons', category: 'Primary', costEstimate: 33000 },
+      { name: 'Alchemist', crosspath: '4-2-0', topPath: 4, midPath: 2, botPath: 0, role: 'Berserker Brew buffs Striker rockets for +1 damage & pierce', category: 'Magic', costEstimate: 5100 },
+      { name: 'Village', crosspath: '2-0-2', topPath: 2, midPath: 0, botPath: 2, role: 'Jungle Drums + Camo Radar coverage', category: 'Support', costEstimate: 3900 }
+    ],
+    buildOrder: [
+      {
+        roundRange: 'Rounds 6-27',
+        phase: 'Striker Early Drop',
+        actions: [
+          'Drop 0-0-0 Bomb Shooter for early rounds.',
+          'Drop Striker Jones on Round 8; he fires triple missiles automatically.',
+          'Place 0-0-2 Fire Monkey on lane bend.',
+          'Striker Level 8 grants permanent global camo detection at no cost.',
+        ],
+        tips: 'Striker Jones auto-targets Strong bloons; perfect for blimp cleanup without aiming.'
+      },
+      {
+        roundRange: 'Rounds 28-50',
+        phase: 'Fire & Ice Build',
+        actions: [
+          'Upgrade Fire Monkey to 4-0-2 Fire & Ice before Round 40 MOAB.',
+          'Fire & Ice decamos and slows; Striker missiles finish off frozen MOABs.',
+          'Place Alchemist next to Striker; upgrade to 4-2-0 Berserker Brew for rocket damage.',
+          'Round 59 camo leads are decamos by Fire & Ice and popped by Striker splash.'
+        ],
+        tips: 'Fire & Ice slow effect stacks with Striker missile explosion timing.'
+      },
+      {
+        roundRange: 'Rounds 51-80',
+        phase: 'Super Brittle Power Spike',
+        actions: [
+          'Save and purchase 5-0-2 Super Brittle around Round 65.',
+          'Add Village 2-0-2 covering Fire & Ice + Striker for attack speed.',
+          'Round 63 ceramics get slowed by Ice and shredded by Striker triple missiles.'
+        ],
+        tips: 'Super Brittle debuff applies to bloons frozen by Fire & Ice, amplifying all missile damage.'
+      },
+      {
+        roundRange: 'Rounds 81-100',
+        phase: 'Rocket Storm Finale',
+        actions: [
+          'Striker Level 20 missile storm launches on Round 98; screen fills with explosions.',
+          'Fire & Ice keeps DDTs slowed for maximum Striker splash uptime.',
+          'Round 100 BAD takes thousands of splash damage per missile volley.'
+        ],
+        tips: 'Striker Level 20 + Super Brittle is one of the cheapest Round 98 answers in CHIMPS.'
+      }
+    ],
+    dangerousRounds: [
+      { round: 40, threat: 'First MOAB', counter: 'Striker triple missile + Fire & Ice slow' },
+      { round: 59, threat: 'Camo Lead', counter: 'Fire & Ice decamo + Striker global camo detection' },
+      { round: 63, threat: 'Ceramic rush', counter: 'Fire & Ice slows + Striker AoE splash' },
+      { round: 90, threat: 'DDT Rush', counter: 'Ice slows DDTs; Striker missiles shred them' },
+      { round: 98, threat: 'Fortified ZOMG wall', counter: 'Striker Level 20 + Super Brittle synergy' },
+      { round: 100, threat: 'B.A.D.', counter: 'Continuous Striker rocket volley + Fire & Ice freeze' }
+    ],
+    pros: [
+      'Striker Jones requires zero micro after drop',
+      'Cheap compared to Tier 5 strategies',
+      'Global camo detection from hero means free Village savings'
+    ],
+    cons: [
+      'Missile targeting can occasionally overkill weak bloons',
+      'Needs Fire & Ice placement with line-of-sight to track bend'
+    ],
+    synergyNotes: 'Striker Jones missiles gain +1 damage and pierce from 4-2-0 Alchemist Berserker Brew; combined with Super Brittle flat damage, each triple missile volley does massive burst.',
+    challengeCode: 'ZMSKYJ',
+    isFeatured: false
+  },
+  {
+    id: 'strat-quincy-elite-defender-budget',
+    title: 'Quincy Elite Defender Budget Run',
+    subtitle: 'Ultra-low-cost CHIMPS completion using Quincy Long Range + Elite Defender cleanup',
+    difficulty: 'Beginner',
+    gameMode: 'CHIMPS',
+    hero: 'Quincy',
+    winRate: 96,
+    patchVersion: 'v47.x',
+    microIntensity: 'Low (AFK)',
+    totalCostEstimate: 34000,
+    monkeyKnowledgeRequired: false,
+    maps: ['Logs', 'Cornfield', 'Bazaar', 'Spillway', 'Quiet Street', 'Monkey Meadow'],
+    tags: ['Budget CHIMPS', 'Sniper Meta', 'Quincy Hero', 'Elite Defender', 'Sub $40k', 'No Tier 5 Needed'],
+    keyTowers: [
+      { name: 'Quincy', crosspath: 'Level 14 (Rapid Fire)', topPath: 0, midPath: 0, botPath: 0, role: 'Rapid-fire arrows with pierce and range buffs', category: 'Hero', costEstimate: 1080 },
+      { name: 'Elite Sniper', crosspath: '0-5-2', topPath: 0, midPath: 5, botPath: 2, role: 'Bouncing bullets that spawn shrapnel spikes on impact', category: 'Military', costEstimate: 15000 },
+      { name: 'Elite Defender', crosspath: '0-2-5', topPath: 0, midPath: 2, botPath: 5, role: 'High-speed machine gun cleanup for any stragglers', category: 'Military', costEstimate: 17500 },
+      { name: 'Alchemist', crosspath: '4-2-0', topPath: 4, midPath: 2, botPath: 0, role: 'Berserker Brew buffs sniper pierce and damage', category: 'Magic', costEstimate: 5100 },
+      { name: 'Village', crosspath: '2-2-0', topPath: 2, midPath: 2, botPath: 0, role: 'Primary Training + Jungle Drums', category: 'Support', costEstimate: 4100 }
+    ],
+    buildOrder: [
+      {
+        roundRange: 'Rounds 6-25',
+        phase: 'Quincy Early Defense',
+        actions: [
+          'Drop Quincy on Round 8; his arrows pierce through multiple bloons.',
+          'Place 0-0-0 Sniper on long straight section.',
+          'Upgrade Sniper to 0-1-0 Long Range for early MOAB prep.',
+        ],
+        tips: 'Quincy Level 5 gives all nearby towers +1 pierce and range.'
+      },
+      {
+        roundRange: 'Rounds 26-45',
+        phase: 'Sniper Midgame',
+        actions: [
+          'Upgrade Sniper to 0-5-0 Bouncing Bullet before Round 40 MOAB.',
+          'Place Alchemist next to Sniper; upgrade to 4-2-0 Berserker Brew.',
+          'Round 40 MOAB is pinned by bouncing bullets and shot repeatedly.',
+        ],
+        tips: 'Bouncing Bullet (0-5-0) creates chains across ceramic clumps.'
+      },
+      {
+        roundRange: 'Rounds 46-65',
+        phase: 'Elite Defender & Elite Sniper',
+        actions: [
+          'Upgrade Sniper to 0-5-2 Elite Sniper for shrapnel spikes.',
+          'Place Elite Defender (0-2-5) at map exit for cleanup.',
+          'Round 63 ceramics are shredded by bouncing bullet chain + shrapnel.'
+        ],
+        tips: 'Elite Sniper shrapnel spikes hit every bounce target, multiplying damage.'
+      },
+      {
+        roundRange: 'Rounds 66-80',
+        phase: 'Half Cash Endgame',
+        actions: [
+          'Quincy Level 10 Storm of Arrows handles emergency leaks.',
+          'Elite Defender machine gun cleans up Round 76 regrow ceramics.',
+          'No Round 100 needed; Half Cash ends at Round 80 with ZOMG.'
+        ],
+        tips: 'Total cost under $35k makes this the most budget-friendly CHIMPS-adjacent clear.'
+      }
+    ],
+    dangerousRounds: [
+      { round: 40, threat: 'MOAB Blimp', counter: 'Quincy rapid shot + 0-5-0 Bouncing Bullet chain' },
+      { round: 59, threat: 'Camo Lead', counter: 'Village 2-2-0 radar + Alchemist buff' },
+      { round: 63, threat: 'Triple Ceramic', counter: 'Elite Sniper bouncing bullets + shrapnel' },
+      { round: 76, threat: 'Regrow Ceramic rush', counter: 'Elite Defender cleanup + Quincy Storm of Arrows' },
+      { round: 80, threat: 'ZOMG Blimp', counter: 'Elite Defender focus fire + Quincy ultimate' }
+    ],
+    pros: [
+      'Under $35,000 total cost',
+      'No Tier 5 megatower required',
+      'Safe against regrow and ceramic rushes'
+    ],
+    cons: [
+      'Designed for Half Cash ending at Round 80',
+      'Struggles on maps with very long, winding tracks'
+    ],
+    synergyNotes: 'Elite Sniper shrapnel (0-5-2) combined with 4-2-0 Alchemist brew creates a chain-reaction damage explosion across ceramic waves.',
+    challengeCode: 'ZMQCY8',
+    isFeatured: false
+  },
+  {
+    id: 'strat-wizard-lord-phoenix-magic',
+    title: 'Wizard Lord Phoenix Magic Carry',
+    subtitle: 'Phoenix dragon breath + meteor storm incinerates every bloon layer with maximum pierce',
+    difficulty: 'Advanced',
+    gameMode: 'CHIMPS',
+    hero: 'Benjamin / Obyn',
+    winRate: 93,
+    patchVersion: 'v47.x',
+    microIntensity: 'Low (AFK)',
+    totalCostEstimate: 132000,
+    monkeyKnowledgeRequired: false,
+    maps: ['Spillway', 'Logs', 'Cubism', 'Rake', 'Resort', 'Park Path'],
+    tags: ['Wizard Meta', 'Phoenix Dragon', 'Fire Breath', 'High Pierce', 'Magic Carry', 'Layer Shredder'],
+    keyTowers: [
+      { name: 'Wizard Lord Phoenix', crosspath: '5-2-0', topPath: 5, midPath: 2, botPath: 0, role: 'Dragon breath dragon fire + meteor storm ability that incinerates MOAB layers', category: 'Magic', costEstimate: 51000 },
+      { name: 'Alchemist', crosspath: '4-2-0', topPath: 4, midPath: 2, botPath: 0, role: 'Stronger Stimulant buffs Phoenix fire breath damage and pierce', category: 'Magic', costEstimate: 5100 },
+      { name: 'Village', crosspath: '2-3-0', topPath: 2, midPath: 3, botPath: 0, role: 'MIB allows Phoenix to pop Lead & DDT without pause', category: 'Support', costEstimate: 11000 },
+      { name: 'Glue Hose', crosspath: '0-3-0', topPath: 0, midPath: 3, botPath: 0, role: 'Slows bloons in Phoenix breath path for longer burn time', category: 'Primary', costEstimate: 2200 }
+    ],
+    buildOrder: [
+      {
+        roundRange: 'Rounds 6-30',
+        phase: 'Wizard Early Setup',
+        actions: [
+          'Drop 0-0-0 Wizard Monkey on lane bend.',
+          'Upgrade to 0-2-0 Energy Absorber for early MOAB damage.',
+          'Place Obyn or Benjamin for hero income/buffs.',
+        ],
+        tips: 'Energy Absorber (0-2-0) melts MOAB outer layers quickly.'
+      },
+      {
+        roundRange: 'Rounds 31-60',
+        phase: 'Phoenix Rush',
+        actions: [
+          'Upgrade Wizard to 5-0-0 Dragon\'s Breath before Round 40 MOAB.',
+          'Add Alchemist 4-2-0 next to Phoenix for fire breath buff.',
+          'Round 40 MOAB is incinerated by continuous dragon breath.'
+        ],
+        tips: 'Dragon breath applies continuous damage to every layer simultaneously.'
+      },
+      {
+        roundRange: 'Rounds 61-85',
+        phase: 'Wizard Lord Phoenix & MIB',
+        actions: [
+          'Upgrade to 5-2-0 Wizard Lord Phoenix around Round 65.',
+          'Add Village 2-3-0 MIB covering Phoenix for Lead/DDT pop power.',
+          'Phoenix meteor storm ability clears Round 63 ceramics instantly.'
+        ],
+        tips: 'MIB Village lets Phoenix shoot DDTs without needing separate decamo.'
+      },
+      {
+        roundRange: 'Rounds 86-100',
+        phase: 'Meteor Storm Finale',
+        actions: [
+          'Phoenix Level 20 meteor storm ability on Round 98 obliterates fortified ZOMG wall.',
+          'Dragon breath melts Round 95 DDT children as they spawn.',
+          'Round 100 BAD is layered by continuous fire breath + meteor storm.'
+        ],
+        tips: 'Wizard Lord Phoenix meteor storm is one of the highest single-target boss DPS abilities in CHIMPS.'
+      }
+    ],
+    dangerousRounds: [
+      { round: 40, threat: 'MOAB Blimp', counter: 'Dragon breath continuous MOAB damage' },
+      { round: 59, threat: 'Camo Lead', counter: 'MIB Village 2-3-0 + Phoenix breath' },
+      { round: 63, threat: 'Ceramic rush', counter: 'Meteor Storm ability instant wipe' },
+      { round: 90, threat: 'DDT Rush', counter: 'MIB Village + Phoenix dragon breath pierce' },
+      { round: 98, threat: 'Fortified ZOMGs', counter: 'Phoenix Level 20 meteor storm + Alchemist buff' },
+      { round: 100, threat: 'B.A.D.', counter: 'Dragon breath melts children; meteor cracks shell' }
+    ],
+    pros: [
+      'Phoenix dragon breath has massive pierce and layer damage',
+      'Meteor storm ability clears entire screen on demand',
+      'Works well on both single and multi-lane maps'
+    ],
+    cons: [
+      'Phoenix requires careful placement for breath angle',
+      'MIB Village cost adds up on budget runs'
+    ],
+    synergyNotes: 'Wizard Lord Phoenix breath hits every layer of a MOAB simultaneously, making it one of the fastest blimp shredders when buffed by 4-2-0 Alchemist.',
+    challengeCode: 'ZMWIZ7',
+    isFeatured: false
   }
 ];
