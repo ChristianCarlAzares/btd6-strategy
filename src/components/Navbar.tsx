@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Volume2, VolumeX, ShieldAlert, Sparkles, Menu, X, Compass, Crosshair, Calculator, Layers, Flame, TrendingUp } from 'lucide-react';
+import { Volume2, VolumeX, ShieldAlert, Sparkles, Menu, X, Compass, Crosshair, Calculator, Layers, Flame, TrendingUp, Map } from 'lucide-react';
 import { soundManager } from '../utils/sound';
 
 interface NavbarProps {
@@ -21,6 +21,7 @@ export const Navbar: React.FC<NavbarProps> = ({ popCount, onPopBonus }) => {
     { name: 'Meta Spotlight', href: '#hero', icon: Sparkles },
     { name: 'Efficiency', href: '#efficiency', icon: TrendingUp },
     { name: 'Strategy Vault', href: '#strategies', icon: Compass },
+    { name: 'Map Atlas', href: '#map-atlas', icon: Map },
     { name: 'Danger Rounds', href: '#round-guide', icon: ShieldAlert },
     { name: 'CHIMPS Planner', href: '#chimps-calc', icon: Calculator },
     { name: 'Tower Synergies', href: '#tower-synergies', icon: Layers },

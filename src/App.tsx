@@ -9,6 +9,7 @@ import { BossEventShowcase } from './components/BossEventShowcase';
 import { Footer } from './components/Footer';
 import { StrategyDetailModal } from './components/StrategyDetailModal';
 import { EfficiencyBoard } from './components/EfficiencyBoard';
+import { MapAtlas } from './components/MapAtlas';
 import { STRATEGIES_DATA } from './data/strategies';
 import { LATEST_STRATEGIES } from './data/strategiesLatest';
 import { PARAGON_STRATEGIES } from './data/strategiesParagon';
@@ -78,6 +79,12 @@ export function App() {
     setSelectedStrategy(strat);
   };
 
+  /** Map Atlas cards deep-link into the Strategy Vault by id. */
+  const handleOpenStrategyById = (strategyId: string) => {
+    const match = ALL_STRATEGIES.find((s) => s.id === strategyId);
+    if (match) setSelectedStrategy(match);
+  };
+
   // Featured spotlight, ordered by efficiency score
   const featuredStrategies = ALL_STRATEGIES
     .filter((s) => s.isFeatured)
@@ -117,6 +124,9 @@ export function App() {
           favorites={favorites}
           onToggleFavorite={handleToggleFavorite}
         />
+
+        {/* Every map, every difficulty: per-map efficient solves */}
+        <MapAtlas onOpenStrategy={handleOpenStrategyById} />
 
         {/* Round Danger Inspector Tool */}
         <RoundInspector />

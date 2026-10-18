@@ -88,6 +88,11 @@ export const Footer: React.FC<FooterProps> = ({ popCount, onPopBonus }) => {
                 </a>
               </li>
               <li>
+                <a href="#map-atlas" onClick={() => soundManager.playTap()} className="hover:text-amber-400 transition-colors">
+                  Map Atlas <span className="text-stone-500 font-mono-code">90 maps</span>
+                </a>
+              </li>
+              <li>
                 <a href="#round-guide" onClick={() => soundManager.playTap()} className="hover:text-amber-400 transition-colors">
                   Round Danger Inspector
                 </a>
