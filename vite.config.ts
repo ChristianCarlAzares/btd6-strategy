@@ -17,6 +17,11 @@ export default defineConfig({
     viteSingleFile(),
     VitePWA({
       registerType: "autoUpdate",
+      workbox: {
+        cleanupOutdatedCaches: true,
+        skipWaiting: true,
+        clientsClaim: true,
+      },
       manifest: {
         name: "BTD6 Strategy Guide",
         short_name: "BTD6 Guide",
