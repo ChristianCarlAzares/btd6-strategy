@@ -92,6 +92,22 @@ export const BossEventShowcase: React.FC = () => {
       ],
       tabooStrategy: 'Relying on single localized Village radar scanners (Phayze disables them)',
       paragonPriority: 'Sub Paragon (Nautic Siege Core) + Ninja Paragon'
+    },
+    {
+      id: 'blastapopoulos',
+      name: 'Blastapopoulos',
+      title: 'Demon of the Core (Heat Meter Boss)',
+      gimmick: 'Accumulates a rising Heat Meter whenever struck by rapid attacks or Fire/Energy/Plasma projectiles. At 100% Heat, erupts to overheat towers, drastically slow attack speed, increase ability cooldowns, and hurl magma meteors that block line of sight.',
+      dangerLevel: 'Tier 5 HP: 35,000,000',
+      skullTriggers: 'Rains burning magma boulders onto the furthest, closest, and most expensive towers while venting a heat wave',
+      recommendedSetup: [
+        'T1 (R40): 2-0-5 Winter\u2019s Mercy Skywarden + 2-0-5 Icicle Impale (Ice/Frigid attacks COOL the Heat Meter!)',
+        'T2 (R60): 1-5-0 M.A.D. + 0-5-2 Popseidon (Frigid tridents suppress overheating)',
+        'T3 (R80): Degree 40+ S.P.I.D.E.R. Sniper Paragon or Dart Paragon + 5-0-2 Super Brittle',
+        'T4–T5 (R100–120): Goliath Doomship + S.P.I.D.E.R. Monkey + Ice Paragon / Absolute Zero cooling rotation'
+      ],
+      tabooStrategy: 'Using Fire/Plasma towers (Inferno Ring, Dragon\u2019s Breath, Gwen, Stormwrath Archon) without Ice/Frigid cooling — fills the Heat Gauge in seconds!',
+      paragonPriority: 'S.P.I.D.E.R. Sniper Paragon + Goliath Doomship (with Ice cooling)'
     }
   ];
 
@@ -111,7 +127,7 @@ export const BossEventShowcase: React.FC = () => {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
           <div>
@@ -180,7 +196,7 @@ export const BossEventShowcase: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            
+
             {/* Recommended Tier-by-Tier Loadout */}
             <div className="space-y-3">
               <span className="text-xs font-mono-code text-amber-400 uppercase tracking-wider block">
@@ -203,7 +219,7 @@ export const BossEventShowcase: React.FC = () => {
 
             {/* Fatal Mistakes & Paragons */}
             <div className="space-y-4">
-              
+
               {/* Taboo Warning */}
               <div className="bg-rose-950/30 border-l-4 border-rose-500 p-3.5 rounded-r-xl space-y-1">
                 <div className="flex items-center space-x-1.5 text-rose-400 font-game font-bold text-sm">

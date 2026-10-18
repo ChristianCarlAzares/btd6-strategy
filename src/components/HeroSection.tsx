@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Sparkles, Trophy, ArrowRight, ShieldCheck, Zap, Crosshair, ChevronRight, ChevronLeft, Target } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { Strategy } from '../types/btd6';
+import { PageId } from '../types/navigation';
 import { soundManager } from '../utils/sound';
 
 interface HeroSectionProps {
@@ -9,6 +10,7 @@ interface HeroSectionProps {
   totalStrategies: number;
   onSelectStrategy: (strat: Strategy) => void;
   onPopBloon: () => void;
+  onNavigate: (page: PageId) => void;
 }
 
 interface FloatingBloon {
@@ -26,7 +28,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   featuredStrategies,
   totalStrategies,
   onSelectStrategy,
-  onPopBloon
+  onPopBloon,
+  onNavigate,
 }) => {
   const newThisPatch = featuredStrategies.filter((s) => s.isNew).length;
   const [currentSpotlightIndex, setCurrentSpotlightIndex] = useState(0);
@@ -177,34 +180,51 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </p>
 
             {/* Quick Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3.5 pt-2">
-              <a
-                href="#strategies"
-                onClick={() => soundManager.playTap()}
-                className="inline-flex items-center space-x-2 bg-gradient-to-r from-amber-500 via-amber-600 to-amber-500 hover:from-amber-400 hover:to-amber-500 text-stone-950 font-game font-bold text-base px-6 py-3.5 rounded-xl shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <button
+                onClick={() => {
+                  soundManager.playTap();
+                  onNavigate('vault');
+                }}
+                className="inline-flex items-center space-x-2 bg-gradient-to-r from-amber-500 via-amber-600 to-amber-500 hover:from-amber-400 hover:to-amber-500 text-stone-950 font-game font-bold text-base px-5 py-3.5 rounded-xl shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
               >
                 <Crosshair className="w-5 h-5 text-stone-950" />
-                <span>Search Strategy Vault</span>
+                <span>Open Strategy Vault</span>
                 <ArrowRight className="w-4 h-4" />
-              </a>
+              </button>
 
-              <a
-                href="#round-guide"
-                onClick={() => soundManager.playTap()}
-                className="inline-flex items-center space-x-2 bg-[#231a11] hover:bg-[#322518] text-amber-300 border border-[#523d24] hover:border-amber-400/50 font-game text-base px-5 py-3.5 rounded-xl transition-all"
+              <button
+                onClick={() => {
+                  soundManager.playTap();
+                  onNavigate('atlas');
+                }}
+                className="inline-flex items-center space-x-2 bg-emerald-500 hover:bg-emerald-400 text-stone-950 font-game font-bold text-base px-5 py-3.5 rounded-xl shadow-lg shadow-emerald-500/20 transition-all transform hover:-translate-y-0.5 cursor-pointer"
+              >
+                <Target className="w-4 h-4 text-stone-950" />
+                <span>Map Atlas (90×20 Modes)</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  soundManager.playTap();
+                  onNavigate('dangers');
+                }}
+                className="inline-flex items-center space-x-2 bg-[#231a11] hover:bg-[#322518] text-amber-300 border border-[#523d24] hover:border-amber-400/50 font-game text-sm px-4 py-3.5 rounded-xl transition-all cursor-pointer"
               >
                 <Target className="w-4 h-4 text-amber-400" />
-                <span>Round 63 &amp; 95 Counters</span>
-              </a>
+                <span>Danger Rounds</span>
+              </button>
 
-              <a
-                href="#chimps-calc"
-                onClick={() => soundManager.playTap()}
-                className="inline-flex items-center space-x-2 bg-[#171f16] hover:bg-[#202c1f] text-emerald-300 border border-emerald-700/50 font-mono-code text-sm px-4 py-3.5 rounded-xl transition-all"
+              <button
+                onClick={() => {
+                  soundManager.playTap();
+                  onNavigate('planner');
+                }}
+                className="inline-flex items-center space-x-2 bg-[#171f16] hover:bg-[#202c1f] text-emerald-300 border border-emerald-700/50 font-mono-code text-sm px-4 py-3.5 rounded-xl transition-all cursor-pointer"
               >
                 <Zap className="w-4 h-4 text-emerald-400" />
                 <span>CHIMPS Cash Tool</span>
-              </a>
+              </button>
             </div>
 
             {/* Interactive Easter Egg Prompt */}

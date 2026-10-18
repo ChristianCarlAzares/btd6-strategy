@@ -1,14 +1,17 @@
 import React from 'react';
 import { ChevronUp, Heart } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { PageId } from '../types/navigation';
 import { soundManager } from '../utils/sound';
 
 interface FooterProps {
   popCount: number;
   onPopBonus: () => void;
+  activePage: PageId;
+  onNavigate: (page: PageId) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ popCount, onPopBonus }) => {
+export const Footer: React.FC<FooterProps> = ({ popCount, onPopBonus, activePage, onNavigate }) => {
   const scrollToTop = () => {
     soundManager.playTap();
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -69,49 +72,32 @@ export const Footer: React.FC<FooterProps> = ({ popCount, onPopBonus }) => {
           {/* Quick Navigation */}
           <div className="lg:col-span-2 space-y-3">
             <h4 className="font-game font-bold text-white text-sm uppercase tracking-wider text-stone-200">
-              EXPLORE
+              DEDICATED PAGES
             </h4>
             <ul className="space-y-2 text-xs">
-              <li>
-                <a href="#hero" onClick={() => soundManager.playTap()} className="hover:text-amber-400 transition-colors">
-                  Meta Spotlight
-                </a>
-              </li>
-              <li>
-                <a href="#efficiency" onClick={() => soundManager.playTap()} className="hover:text-amber-400 transition-colors">
-                  Efficiency Leaderboard
-                </a>
-              </li>
-              <li>
-                <a href="#strategies" onClick={() => soundManager.playTap()} className="hover:text-amber-400 transition-colors">
-                  Strategy Vault <span className="text-emerald-400 font-mono-code">· v57.2</span>
-                </a>
-              </li>
-              <li>
-                <a href="#map-atlas" onClick={() => soundManager.playTap()} className="hover:text-amber-400 transition-colors">
-                  Map Atlas <span className="text-stone-500 font-mono-code">90 maps</span>
-                </a>
-              </li>
-              <li>
-                <a href="#round-guide" onClick={() => soundManager.playTap()} className="hover:text-amber-400 transition-colors">
-                  Round Danger Inspector
-                </a>
-              </li>
-              <li>
-                <a href="#chimps-calc" onClick={() => soundManager.playTap()} className="hover:text-amber-400 transition-colors">
-                  CHIMPS Cash Tool
-                </a>
-              </li>
-              <li>
-                <a href="#tower-synergies" onClick={() => soundManager.playTap()} className="hover:text-amber-400 transition-colors">
-                  Crosspath Matrix
-                </a>
-              </li>
-              <li>
-                <a href="#boss-events" onClick={() => soundManager.playTap()} className="hover:text-amber-400 transition-colors">
-                  Elite Boss Guides
-                </a>
-              </li>
+              {[
+                { id: 'spotlight' as PageId, label: 'Meta Spotlight & Efficiency' },
+                { id: 'vault' as PageId, label: 'Strategy Vault (22)' },
+                { id: 'atlas' as PageId, label: 'Map Atlas (90×20 Modes)' },
+                { id: 'dangers' as PageId, label: 'Round Danger Inspector' },
+                { id: 'planner' as PageId, label: 'CHIMPS Cash Planner' },
+                { id: 'synergies' as PageId, label: 'Tower Synergies' },
+                { id: 'bosses' as PageId, label: 'Elite Boss Guides (6)' },
+              ].map((link) => (
+                <li key={link.id}>
+                  <button
+                    onClick={() => {
+                      soundManager.playTap();
+                      onNavigate(link.id);
+                    }}
+                    className={`text-left transition-colors cursor-pointer ${
+                      activePage === link.id ? 'text-amber-400 font-bold' : 'hover:text-amber-400'
+                    }`}
+                  >
+                    {link.label}
+                  </button>
+                </li>
+              ))}
             </ul>
           </div>
 
