@@ -166,7 +166,7 @@ export const Footer: React.FC<FooterProps> = ({ popCount, onPopBonus }) => {
         <div className="pt-8 border-t border-[#291b0f] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-400">
           <div className="space-y-1 text-center sm:text-left">
             <p className="flex items-center justify-center sm:justify-start space-x-1">
-              <span>Made with</span>
+              <span>Made by Colixsto</span>
               <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500" />
               <span>for the Bloons TD 6 Strategy Community.</span>
             </p>
